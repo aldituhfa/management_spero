@@ -80,15 +80,14 @@
 
                     {{-- Tombol Edit --}}
                     <button
-                    data-id="{{ $user->id }}"
-                    data-name="{{ $user->name }}"
-                    data-email="{{ $user->email }}"
-                    data-role="{{ $user->role }}"
-                    onclick="openEditModal(this)"
-                    style="background:#334155; color:white; padding:6px 12px; border:none; border-radius:5px; cursor:pointer;">
-                    Edit
-                </button>
->
+                        data-id="{{ $user->id }}"
+                        data-name="{{ $user->name }}"
+                        data-email="{{ $user->email }}"
+                        data-role="{{ $user->role }}"
+                        onclick="openEditModal(this)"
+                        style="background:#334155; color:white; padding:6px 12px; border:none; border-radius:5px; cursor:pointer;">
+                        Edit
+                    </button>
 
                     {{-- Tombol Delete --}}
                     <form action="{{ url('/roles/superadmin/users/'.$user->id) }}" 
@@ -108,7 +107,6 @@
         </tbody>
     </table>
 </div>
-
 
 {{-- ===================== MODAL EDIT ===================== --}}
 <div id="editModal" style="
@@ -146,6 +144,11 @@
                 <option value="finance">Finance</option>
             </select>
 
+            <label style="margin-top:10px;">Password Baru (opsional)</label>
+            <input type="password" id="editPassword" name="password" 
+                placeholder="Kosongkan jika tidak mengubah"
+                style="width:100%; padding:10px;">
+
             <button type="submit" style="
                 margin-top:15px; background:#1e293b; 
                 color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">
@@ -162,7 +165,12 @@
 </div>
 
 <script>
-function openEditModal(id, name, email, role) {
+function openEditModal(button) {
+    const id = button.getAttribute('data-id');
+    const name = button.getAttribute('data-name');
+    const email = button.getAttribute('data-email');
+    const role = button.getAttribute('data-role');
+
     document.getElementById('editModal').style.display = 'flex';
 
     document.getElementById('editName').value = name;
