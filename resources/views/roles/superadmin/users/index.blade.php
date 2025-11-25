@@ -65,19 +65,116 @@
                 <th style="padding:10px; border-bottom:1px solid #e2e8f0;">Nama</th>
                 <th style="padding:10px; border-bottom:1px solid #e2e8f0;">Email</th>
                 <th style="padding:10px; border-bottom:1px solid #e2e8f0;">Role</th>
+                <th style="padding:10px; border-bottom:1px solid #e2e8f0;">Aksi</th>
             </tr>
         </thead>
 
         <tbody>
             @foreach($users as $user)
-                <tr>
-                    <td style="padding:10px; border-bottom:1px solid #e2e8f0;">{{ $user->name }}</td>
-                    <td style="padding:10px; border-bottom:1px solid #e2e8f0;">{{ $user->email }}</td>
-                    <td style="padding:10px; border-bottom:1px solid #e2e8f0;">{{ $user->role }}</td>
-                </tr>
+            <tr>
+                <td style="padding:10px; border-bottom:1px solid #e2e8f0;">{{ $user->name }}</td>
+                <td style="padding:10px; border-bottom:1px solid #e2e8f0;">{{ $user->email }}</td>
+                <td style="padding:10px; border-bottom:1px solid #e2e8f0;">{{ $user->role }}</td>
+
+                <td style="padding:10px; border-bottom:1px solid #e2e8f0;">
+
+                    {{-- Tombol Edit --}}
+                    <button
+                    data-id="{{ $user->id }}"
+                    data-name="{{ $user->name }}"
+                    data-email="{{ $user->email }}"
+                    data-role="{{ $user->role }}"
+                    onclick="openEditModal(this)"
+                    style="background:#334155; color:white; padding:6px 12px; border:none; border-radius:5px; cursor:pointer;">
+                    Edit
+                </button>
+>
+
+                    {{-- Tombol Delete --}}
+                    <form action="{{ url('/roles/superadmin/users/'.$user->id) }}" 
+                          method="POST" 
+                          style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button onclick="return confirm('Hapus user ini?')" 
+                                style="background:#b91c1c; color:white; padding:6px 12px; border:none; border-radius:5px; cursor:pointer;">
+                            Hapus
+                        </button>
+                    </form>
+
+                </td>
+            </tr>
             @endforeach
         </tbody>
     </table>
 </div>
+
+
+{{-- ===================== MODAL EDIT ===================== --}}
+<div id="editModal" style="
+    display:none;
+    position:fixed; 
+    top:0; left:0; 
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.5);
+    justify-content:center; 
+    align-items:center;
+">
+    <div style="
+        background:white;
+        padding:20px;
+        border-radius:8px;
+        width:400px;
+        box-shadow:0 2px 10px rgba(0,0,0,0.2);
+    ">
+        <h3>Edit User</h3>
+
+        <form id="editForm" method="POST">
+            @csrf
+            @method('PUT')
+
+            <label>Nama</label>
+            <input id="editName" type="text" name="name" style="width:100%; padding:10px;" required>
+
+            <label style="margin-top:10px;">Email</label>
+            <input id="editEmail" type="email" name="email" style="width:100%; padding:10px;" required>
+
+            <label style="margin-top:10px;">Role</label>
+            <select id="editRole" name="role" style="width:100%; padding:10px;" required>
+                <option value="sales">Sales</option>
+                <option value="project">Project</option>
+                <option value="finance">Finance</option>
+            </select>
+
+            <button type="submit" style="
+                margin-top:15px; background:#1e293b; 
+                color:white; padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">
+                Simpan Perubahan
+            </button>
+
+            <button type="button" onclick="closeEditModal()" style="
+                margin-top:15px; background:#475569; color:white;
+                padding:10px 20px; border:none; border-radius:5px; cursor:pointer;">
+                Batal
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+function openEditModal(id, name, email, role) {
+    document.getElementById('editModal').style.display = 'flex';
+
+    document.getElementById('editName').value = name;
+    document.getElementById('editEmail').value = email;
+    document.getElementById('editRole').value = role;
+
+    document.getElementById('editForm').action = "/roles/superadmin/users/" + id;
+}
+
+function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+}
+</script>
 
 @endsection

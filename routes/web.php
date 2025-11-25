@@ -37,6 +37,8 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
     // CRUD user role lain
     Route::get('/roles/superadmin/users', [SuperAdminController::class, 'index'])->name('roles.superadmin.users');
     Route::post('/roles/superadmin/users', [SuperAdminController::class, 'store']);
+    Route::put('/roles/superadmin/users/{id}', [SuperAdminController::class, 'update']);
+    Route::delete('/roles/superadmin/users/{id}', [SuperAdminController::class, 'destroy']);
 });
 
 // Sales

@@ -36,4 +36,29 @@ class SuperAdminController extends Controller
 
         return back()->with('success', 'User berhasil dibuat');
     }
+
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'name'  => 'required',
+        'email' => 'required|unique:users,email,' . $id,
+        'role'  => 'required|in:sales,project,finance',
+    ]);
+
+    $user = User::findOrFail($id);
+    $user->update([
+        'name'  => $request->name,
+        'email' => $request->email,
+        'role'  => $request->role,
+    ]);
+
+    return back()->with('success', 'User berhasil diperbarui');
+}
+
+public function destroy($id)
+{
+    User::where('id', $id)->delete();
+    return back()->with('success', 'User berhasil dihapus');
+}
+
 }
