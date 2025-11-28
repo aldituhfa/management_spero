@@ -262,10 +262,6 @@
                         <span>Manage Users</span>
                     </a>
                 </li>
-<<<<<<< Updated upstream
-                
-=======
-
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('roles.superadmin.projects') ? 'active' : '' }}"
                         href="{{ route('roles.superadmin.projects') }}">
@@ -273,7 +269,6 @@
                         <span>Manage Projects</span>
                     </a>
                 </li>
->>>>>>> Stashed changes
             </ul>
         </div>
     </div>
