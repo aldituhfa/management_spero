@@ -240,9 +240,9 @@
     <div class="sidebar">
         <div class="sidebar-header">
             <div class="logo-container">
-    <img src="{{ asset('images/Spero Logo.jpg') }}" alt="Logo Spero" class="logo-img">
-    
-</div>
+                <img src="{{ asset('images/Spero Logo.jpg') }}" alt="Logo Spero" class="logo-img">
+
+            </div>
         </div>
 
         <div class="sidebar-content">
@@ -262,7 +262,18 @@
                         <span>Manage Users</span>
                     </a>
                 </li>
+<<<<<<< Updated upstream
                 
+=======
+
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('roles.superadmin.projects') ? 'active' : '' }}"
+                        href="{{ route('roles.superadmin.projects') }}">
+                        <i class="ti ti-folder"></i>
+                        <span>Manage Projects</span>
+                    </a>
+                </li>
+>>>>>>> Stashed changes
             </ul>
         </div>
     </div>
@@ -284,11 +295,11 @@
                         <a href="#" class="nav-link d-flex align-items-center p-0" data-bs-toggle="dropdown">
                             <div class="avatar me-2">
                                 @if(Auth::user()->profile_photo)
-                                    <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}" 
-                                         alt="Profile" 
-                                         class="avatar-img">
+                                <img src="{{ asset('storage/' . Auth::user()->profile_photo) }}"
+                                    alt="Profile"
+                                    class="avatar-img">
                                 @else
-                                    {{ strtoupper(substr(Auth::user()->name ?? 'SA', 0, 2)) }}
+                                {{ strtoupper(substr(Auth::user()->name ?? 'SA', 0, 2)) }}
                                 @endif
                             </div>
                             <span class="d-none d-md-inline">{{ Auth::user()->name ?? 'Super Admin' }}</span>

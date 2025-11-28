@@ -39,6 +39,20 @@ Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::post('/roles/superadmin/users', [SuperAdminController::class, 'store']);
     Route::put('/roles/superadmin/users/{id}', [SuperAdminController::class, 'update']);
     Route::delete('/roles/superadmin/users/{id}', [SuperAdminController::class, 'destroy']);
+
+
+    //CRUD project (data dummy)
+    Route::get('/roles/superadmin/projects', function () {
+        return view('roles.superadmin.projects.index');
+    })->name('roles.superadmin.projects');
+
+    Route::get('/roles/superadmin/projects/create', function () {
+        return view('roles.superadmin.projects.create');
+    })->name('roles.superadmin.projects.create');
+
+    Route::get('/roles/superadmin/projects/{id}', function ($id) {
+        return view('roles.superadmin.projects.show', compact('id'));
+    })->name('roles.superadmin.projects.show');
 });
 
 // Sales
